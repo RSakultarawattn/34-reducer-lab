@@ -3,28 +3,20 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import App from './App';
 
 describe('App component that changes color', () => {
-  it('changes color with undo and redo buttons', async() => {
+  it('display current color', async() => {
     render(<App />);
 
-    const before = screen.getByTestId('before');
+   
     const current = screen.getByTestId('current');
-    const after = screen.getByTestId('after');
+   
     
-    fireEvent.change(before, {
-      target: {
-        value: '#00FF00'
-      }
-    });
+   
     fireEvent.change(current, {
       target: {
         value: '#FF0000'
       }
     });
-    fireEvent.change(after, {
-      target: {
-        value: '#FF0000'
-      }
-    });
+    
     
     const display = await screen.findByTestId('display');  
 
@@ -35,4 +27,61 @@ describe('App component that changes color', () => {
 
     });
   });
+  it('it should undo to previous color', async() => {
+    render(<App />);
+
+   
+    const current = screen.getByTestId('current');
+    const undo = screen.getByTestId('undo');
+   
+    
+   
+    fireEvent.change(current, {
+      target: {
+        value: '#00FF00'
+      }
+    });
+    
+    fireEvent.click(undo);
+
+    const display = await screen.findByTestId('display');  
+
+    expect(display).toHaveStyle({
+      
+      backgroundColor: '#FF0000',
+      
+
+    });
+  });
+  it('it should redo what the undo done did', async() => {
+    render(<App />);
+
+   
+    const current = screen.getByTestId('current');
+    const redo = screen.getByTestId('redo');
+    const undo = screen.getByTestId('undo');
+    
+   
+    
+   
+    fireEvent.change(current, {
+      target: {
+        value: '#00FF00',
+      }
+    });
+    
+    fireEvent.click(undo);
+    fireEvent.click(redo);
+
+    const display = await screen.findByTestId('display');  
+
+    expect(display).toHaveStyle({
+      
+      backgroundColor: '#00FF00',
+      
+
+    });
+  });
 });
+
+
