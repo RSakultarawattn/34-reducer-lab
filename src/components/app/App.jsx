@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 
 const useRecord = (init) => {
   const [before, setBefore] = useState([]);
@@ -35,10 +36,14 @@ function App() {
 
   return (
     <>
-      <button onClick={undo}>undo</button>
-      <button onClick={redo}>redo</button>
-      <input type="color" value={current} onChange={({ target }) => record(target.value)} />
-      <div style={{ backgroundColor: current, width: '10rem', height: '10rem' }}></div>
+      <button data-testid="before" onClick={undo}>undo</button>
+      <button data-testid="after" onClick={redo}>redo</button>
+      <input data-testid="current" type="color" value={current} 
+        onChange={({ target }) => record(target.value)} />
+      <div data-testid="display" style={{ backgroundColor: current, 
+        width: '10rem', height: '10rem' }}>
+        
+      </div>
     </>
   );
 }
