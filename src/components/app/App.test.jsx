@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import App from './App';
 
 describe('App component that changes color', () => {
+  
   it('display current color', async() => {
     render(<App />);
 
