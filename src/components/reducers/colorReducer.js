@@ -12,7 +12,7 @@ export default function reducer(state, action) {
       return { 
         ...state,
         after: [state.current,  ...state.after],
-        current: state.before[state.before.length - 1],
+        current: state.before[state.before.length - 1] || ['#FFFF00'],
         before: state.before.slice(0, -1),
       };
     case 'REDO':
