@@ -5,7 +5,7 @@ export const initialState = {
 };
 
 export default function reducer(state, action) {
-  // const { before, current, after } = state;
+
 
   switch(action.type) {
     case 'UNDO':
@@ -19,7 +19,7 @@ export default function reducer(state, action) {
       return {
         ...state,
         before: [...state.before, ...state.current],
-        current: state.after[0],
+        current: state.after[0] || ['#FFFF00'],
         after: state.after.slice(1),
       };
     case 'RECORD':
